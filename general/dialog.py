@@ -16,7 +16,7 @@ class Dialog:
     def get_path():
         class_name = input('input class name =  ') + '.py'
         root_dir = os.path.dirname(os.path.abspath(__file__))
-        file_path = os.path.join(root_dir, 'components', class_name)
+        file_path = os.path.join(root_dir, 'data', class_name)
         return file_path
 
 

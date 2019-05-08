@@ -1,7 +1,11 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QComboBox
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import pyqtSlot
+import data.components
 
 
-class MainApp(QtWidgets.QMainWindow):
+
+class MainApp(QWidget):
 
     def __init__(self):
         super().__init__()
@@ -13,6 +17,10 @@ class MainApp(QtWidgets.QMainWindow):
     def initUI(self):
         self.setWindowTitle(self.title)
         self.setFixedSize(self.window_width, self.window_high)
+
+       #create list
+        list_of_classes = QComboBox(self)
+        list_of_classes.addItems(data.components.get_all_components())
         self.show()
 
 
@@ -23,6 +31,6 @@ class MainApp(QtWidgets.QMainWindow):
 
 if __name__ == "__main__":
     import sys
-    app = QtWidgets.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     main_app = MainApp()
     sys.exit(app.exec_())

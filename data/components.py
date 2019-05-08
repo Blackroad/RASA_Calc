@@ -1,8 +1,7 @@
 from general.core import Component
-from general.dialog import Dialog
 
 
-class RaJ5JFS:
+class Ra_J5_JFS:
     seb_output = 2.00662
     capacity = 200
     el_gain = 132.83
@@ -15,5 +14,18 @@ class RaJ5JFS:
         for i, j in zip(x_values, force_values):
             print("\nPL Input: {}\nOutput: {}\n.".format(i, j))
 
+class RA_L1_PINCHSENSOR:
 
-RaJ5JFS().calculations(Dialog.input())
+    def calculations(self, values):
+        x_values = Component(values['dot'], values['width'],values['signed']).get_width_variable()
+
+        y = [x/2**values['dot'] * 2 for x in x_values]
+        for i, j in zip(x_values, y):
+            print("\nPL Input: {}\nOutput: {}\n.".format(i, j))
+
+
+def get_all_components():
+    import sys, inspect
+    class_list = [obj.__name__ for name, obj in inspect.getmembers(sys.modules[__name__])[1:] if inspect.isclass(obj)]
+    return class_list
+

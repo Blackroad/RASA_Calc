@@ -15,3 +15,8 @@ class Component:
             variable_middle = int(variable_max / 2)
             variable_min = 0
         return variable_max, variable_middle, variable_min
+
+
+
+
+
