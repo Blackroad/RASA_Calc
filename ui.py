@@ -1,8 +1,8 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QComboBox, QLineEdit, QCheckBox, QLabel, QGroupBox, QHBoxLayout, QFormLayout
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QComboBox, QLineEdit, QCheckBox, QLabel, QGroupBox, QHBoxLayout, QFormLayout, QMainWindow
 from PyQt5.QtGui import QIntValidator
 from PyQt5.QtCore import pyqtSlot, QRect, QCoreApplication
 import inspect
-from general.core import Veriables_Calculation, get_all_components
+from core import Veriables_Calculation, get_all_components
 from data import components
 
 
@@ -27,10 +27,9 @@ class MainApp(QWidget):
         self.show()
 
     def initUI(self):
+        # buttons
         self.setWindowTitle(self.title)
         self.setFixedSize(self.window_width, self.window_high)
-
-        # buttons
         calculate_button = QPushButton(self)
         exit_button = QPushButton(self)
         calculate_button.setText('Calculate')

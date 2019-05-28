@@ -18,7 +18,3 @@ class RA_L1_PINCHSENSOR:
     def calculations(values, dot):
         y = [float(x/2**dot * 2) for x in values.values()]
         return sorted(y)
-
-
-
-
