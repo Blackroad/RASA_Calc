@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QComboBox, QLineEdit, QCheckBox, QLabel, QGroupBox, QHBoxLayout, QFormLayout, QMainWindow
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QComboBox, QLineEdit, QCheckBox, QLabel, QGroupBox, QHBoxLayout, QFormLayout
 from PyQt5.QtGui import QIntValidator
 from PyQt5.QtCore import pyqtSlot, QRect, QCoreApplication
 import inspect
@@ -30,16 +30,20 @@ class MainApp(QWidget):
         # buttons
         self.setWindowTitle(self.title)
         self.setFixedSize(self.window_width, self.window_high)
+
         calculate_button = QPushButton(self)
         exit_button = QPushButton(self)
         calculate_button.setText('Calculate')
         exit_button.setText('Exit')
-        group_calc_exit = QGroupBox(self)
+
         h_box = QHBoxLayout(self)
+        group_calc_exit = QGroupBox(self)
+        group_calc_exit.setGeometry(QRect(10, 250, 330, 40))
+        group_calc_exit.setLayout(h_box)
         h_box.addWidget(calculate_button)
         h_box.addWidget(exit_button)
-        group_calc_exit.setLayout(h_box)
-        group_calc_exit.setGeometry(QRect(10, 250, 330, 40))
+
+
 
         # sub-initialize list of classes
         self.list_of_classes = QComboBox(self)
@@ -77,11 +81,11 @@ class MainApp(QWidget):
         result_box = QGroupBox(self)
         result_box.setTitle('X-values')
         vbox = QFormLayout(self)
-        r1 = QRect(10, 120, 120, 120)
+        result_box.setLayout(vbox)
+        result_box.setGeometry(QRect(10, 120, 120, 120))
         vbox.addRow('&XMIN', self.x_min)
         vbox.addRow('&XMID', self.x_mid)
         vbox.addRow('&XMAX', self.x_max)
-        result_box.setGeometry(r1)
 
         # sub initialize y-values
         self.y_result1 = QLineEdit(self)
@@ -90,15 +94,18 @@ class MainApp(QWidget):
         self.y_result2.setReadOnly(True)
         self.y_result3 = QLineEdit(self)
         self.y_result3.setReadOnly(True)
+
+        # create y-box
         y_box = QGroupBox(self)
         y_box.setTitle('Y-values')
         yv_box = QFormLayout(self)
         y_box.setGeometry(QRect(140, 120, 200, 120))
+        y_box.setLayout(yv_box)
+
+        # add elements to y-box
         yv_box.addRow('Y for X_MIN', self.y_result1)
         yv_box.addRow('Y for X_MID', self.y_result2)
         yv_box.addRow('Y for X_MAX', self.y_result3)
-        result_box.setLayout(vbox)
-        y_box.setLayout(yv_box)
 
         # clicked actions
         exit_button.clicked.connect(self.exit)
