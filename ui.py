@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QComboBox, QLineEdit, QCheckBox, QLabel, QGroupBox, QHBoxLayout, QFormLayout
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QComboBox, QLineEdit, QCheckBox, QLabel, QGroupBox, QHBoxLayout, QFormLayout, QMessageBox
 from PyQt5.QtGui import QIntValidator
 from PyQt5.QtCore import pyqtSlot, QRect, QCoreApplication
 import inspect
@@ -17,6 +17,7 @@ class MainApp(QWidget):
         self.signed = None
         self.x_min, self.x_mid, self.x_max = None, None, None
         self.y_result1, self.y_result2, self.y_result3 = None, None, None
+        self.inform_window = None
 
         # main class atributes
         self.setObjectName('Window')
@@ -43,8 +44,6 @@ class MainApp(QWidget):
         h_box.addWidget(calculate_button)
         h_box.addWidget(exit_button)
 
-
-
         # sub-initialize list of classes
         self.list_of_classes = QComboBox(self)
         self.list_of_classes.setGeometry(140, 20, 200, 25)
@@ -52,9 +51,9 @@ class MainApp(QWidget):
 
         # sub-initialize dot
         self.dot_value = QLineEdit(self)
-        self.dot_value .setPlaceholderText('Dot')
-        self.dot_value .setValidator(QIntValidator(1, 10))
-        self.dot_value .setGeometry(10, 20, 100, 25)
+        self.dot_value.setPlaceholderText('Dot')
+        self.dot_value.setValidator(QIntValidator(1, 10))
+        self.dot_value.setGeometry(10, 20, 100, 25)
 
         # sub-initialize width
         self.width_value = QLineEdit(self)
@@ -119,8 +118,9 @@ class MainApp(QWidget):
                 self.x_min.setText(str(result['x_min']))
                 self.x_mid.setText(str(result['x_mid']))
                 self.x_max.setText(str(result['x_max']))
+            elif self.dot_value.text() is '':
+                self.inform_window = QMessageBox().information(self, 'Information', 'Dot value is empty. For further calculation, please input Dot value', buttons=QMessageBox.Ok)
             else:
-                # TODO Handle exception when dot == NONE
                 for name, obj in (inspect.getmembers(components, inspect.isclass)):
                     if self.list_of_classes.currentText() == name:
                         y = obj().calculations(result, int(self.dot_value.text()))
